@@ -25,6 +25,14 @@ class Admin extends BaseController
         $this->loadViewsAdmin('admin/dataPendaftaran', $this->global, $data, NULL, TRUE);
     }
 
+    function getPaymentRegister() {
+        $nik = $this->input->post('nik');
+
+        $ngoding_males = $this->db->get_where('transaksi', ['nik' => $nik])->row_array();
+        // pre($this->db->last_query());
+        echo json_encode($ngoding_males);
+    }
+
     function addKategori()
     {
         $nama = $this->input->post('nama');

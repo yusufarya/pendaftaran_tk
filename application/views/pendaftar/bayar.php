@@ -15,6 +15,12 @@ $metode_bayar = $data['metode_bayar'];
 $getRekening = $this->db->get_where('metode_pembayaran', ['id' => $idByr])->row_array();
 $namaBank = $getRekening['nama'];
 $noRek = $getRekening['no_rek'];
+
+
+$QRYB = "SELECT pendaftaran+seragam+buku_pembelajaran+alat_tulis+tas_sekolah+spp_pertama+porseni_asuransi-potongan AS total_biaya
+        FROM biaya_administrasi";
+$biaya_detail = $this->db->query($QRYB)->row_array();
+
 ?>
 <!-- Begin Page Content -->
 <div class="container-fluid">
@@ -38,7 +44,7 @@ $noRek = $getRekening['no_rek'];
                     </tr>
                     <tr>
                         <th>Jumlah</th>
-                        <td>Rp. 200,000.00</td>
+                        <td><?= number_format($biaya_detail['total_biaya'],2) ?></td>
                     </tr>
                     <tr>
                         <th>Nomor Transaksi</th>
@@ -56,8 +62,22 @@ $noRek = $getRekening['no_rek'];
 
         </div>
     <?php } else { ?>
-        <div class="col-md-10 card roounded p-3 mb-3" style="height: 450px;">
-            <span>Pembayaran Sedang Diproses.</span>
+        <div class="col-md-10 card roounded p-3 mb-3" style="height: 350px;">
+            <div class="row">
+                <div class="col-md-3">
+                    <img src="<?= base_url('assets/img/thanks.png') ?>" alt="terimakasih" width="189">
+                </div>
+                <div class="col-md-8">
+                    <div class="alert h2 mt-5" style="background-color: transparent;">
+                        <i>
+                            Anda telah melakukan pembayaran.
+                        </i>
+                    </div>
+                </div>
+                <span style="text-align: center; text-shadow: 0px 2px 3px salmon; font-weight: 600; margin-right: 20px;">
+                    Pembayaran akan segera diproses.
+                </span>
+            </div>
         </div>
     <?php } ?>
 

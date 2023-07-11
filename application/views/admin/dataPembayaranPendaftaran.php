@@ -65,7 +65,7 @@ $order = $data['order'];
                             <?= $val['gambar'] ?>
                         </td>
                         <td style="text-align: center;">
-                            <a href="<?= base_url('Payment/paymentDetail/') . $val['nomor'] ?>" class="text-info bg-white"><i class="bi bi-info"></i> Detail</a>
+                            <a href="#" onclick="detailPayment(`<?= $val['nomor'] ?>`)" class="text-info bg-white"><i class="bi bi-info"></i> Detail</a>
                         </td>
                     </tr>
                 <?php } ?>

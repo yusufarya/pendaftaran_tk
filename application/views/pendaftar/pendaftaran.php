@@ -5,6 +5,8 @@ $user = $data['me'];
 $register = $this->db->get_where('pendaftar', ['murid_id' => $user['id']]);
 $checkRegister = $register->num_rows();
 $dataDaftar = $register->row_array();
+
+$cekLampiran = $this->db->get_where('lampiran_murid', ['nik' => $user['nik'], 'akta_kelahiran <>' => '', 'kartu_keluarga <>' => '' ])->row_array(); 
 ?>
 <!-- Begin Page Content -->
 <div class="container-fluid">
@@ -33,17 +35,42 @@ $dataDaftar = $register->row_array();
                 </div>
             </div>
         <?php
-        } else if ($user['gambar'] != '' && $dataDaftar['status_bayar'] == 0) { ?>
+        } else if ($cekLampiran == '') { ?>
             <div class="col-md-10 card roounded p-3 mb-3">
-                <strong class="row bg-danger px-2 mx-3 mt-2">Bayar Daftar Ulang</strong>
-                <div class=" mb-3 row m-2 my-4">
-                    <h6>Biodata anda telah didaftarkan</h6>
-                    <span>Lanjutkan
-                        <a href="<?= base_url('daftar_ulang') ?>" class="text-decoration-none"> Pembayaran Daftar Ulang</a>
-                        Sekarang
-                    </span>
-                </div>
+                <strong class="px-3 py-2 mt-2 rounded" style="background-color: salmon; text-align: center">
+                    Upload Lampiran
+                </strong> 
+                <form id="form_upload_file" method="post" enctype="multipart/form-data">
+                <div class="row">
+                    <div class="col mx-1 mt-3">
+                            <div class="mb-3">
+                                <label for="file_akta" class="form-label">Upload Akta Kelahiran </label>
+                                <input class="form-control" type="file" id="file_akta" name="file_akta">
+                                <small style="color: red;">Format file jpg | jpeg | png</small>
+                            </div>
+                            <div class="mb-3">
+                                <label for="file_kk" class="form-label">Upload Kartu Keluarga </label>
+                                <input class="form-control" type="file" id="file_kk" name="file_kk">
+                                <small style="color: red;">Format file jpg | jpeg | png</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-2 row m-1 my-4"> 
+                        <button type="button" id="save_file" class="btn btn-info text-dark text-dark"> Simpan File </button> 
+                    </div>
+                </form>
             </div>
+        <?php
+        } else if ($user['gambar'] != '' && $dataDaftar['status_bayar'] == 0) { ?>
+            <div class="col-md-10">
+            <br>
+                <div class="row p-3 bg-white rounded">
+                    <div class="mb-3 row m-2 my-4">
+                        <h6 class="m-0 mb-3 alert alert-warning">Biodata anda telah disimpan, silahkan lakukan pembayaran</h6> <br>
+                        <a href="<?= base_url('payment-re-registration') ?>" class="text-decoration-none mt-3 btn btn-info text-dark text-dark"> <i class="bi bi-cash-coin"></i> Lanjutkan Pembayaran <i class="bi bi-cash-coin"></i></a> 
+                    </div>
+                </div>
+            </div> <br><br><br><br><br><br><br><br>
         <?php
         }
         ?>
@@ -73,7 +100,7 @@ $dataDaftar = $register->row_array();
                 <div class=" mb-3 row m-2">
                     <label for="nik" class="col-sm-3 col-form-label">NIK <i style="color: red;">*</i></label>
                     <div class="col-sm-9">
-                        <input type="text" name="nik" id="nik" class="form-control" maxlength="16" required>
+                        <input type="text" name="nik" id="nik" class="form-control" maxlength="16" value="<?= $user['nik'] ?>" required>
                     </div>
                 </div>
                 <input type="hidden" class="form-control" id="tanggal" name="tanggal" value="<?= date('Y-m-d') ?>" readonly>
@@ -96,26 +123,26 @@ $dataDaftar = $register->row_array();
                 <div class=" mb-3 row m-2">
                     <label for="negara" class="col-sm-3 col-form-label">Kewarganegaraan <i style="color: red;">*</i></label>
                     <div class="col-sm-9">
-                        <input type="text" name="negara" id="negara" class="form-control">
+                        <input type="text" name="negara" id="negara" class="form-control" value="<?= $user['negara'] ?>">
                     </div>
                 </div>
                 <hr>
                 <div class=" mb-3 row m-2">
                     <label for="tinggal_dengan" class="col-sm-3 col-form-label">Tinggal Bersama <i style="color: red;">*</i></label>
                     <div class="col-sm-9">
-                        <input type="text" name="tinggal_dengan" id="tinggal_dengan" class="form-control" placeholder="Orang tua / Saudara / dll">
+                        <input type="text" name="tinggal_dengan" id="tinggal_dengan" class="form-control" placeholder="Orang tua / Saudara / dll" value="<?= $user['tinggal_bersama'] ?>">
                     </div>
                 </div>
                 <div class=" mb-3 row m-2">
                     <label for="anak_ke" class="col-sm-3 col-form-label">Anak Ke <i style="color: red;">*</i></label>
                     <div class="col-sm-9">
-                        <input type="text" name="anak_ke" id="anak_ke" class="form-control">
+                        <input type="text" name="anak_ke" id="anak_ke" class="form-control" value="<?= $user['anak_ke'] ?>">
                     </div>
                 </div>
                 <div class=" mb-3 row m-2">
                     <label for="usia" class="col-sm-3 col-form-label">Usia <i style="color: red;">*</i></label>
                     <div class="col-sm-9">
-                        <input type="text" name="usia" id="usia" class="form-control">
+                        <input type="text" name="usia" id="usia" class="form-control" value="<?= $user['usia'] ?>">
                     </div>
                 </div>
                 <div class=" mb-3 row m-2">

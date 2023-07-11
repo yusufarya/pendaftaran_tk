@@ -7,6 +7,12 @@ $checkRegister = $register->num_rows();
 $dataDaftar = $register->row_array();
 
 $metode_bayar = $data['metode_bayar'];
+
+$QRYB = "SELECT *,
+        pendaftaran+seragam+buku_pembelajaran+alat_tulis+tas_sekolah+spp_pertama+porseni_asuransi AS jumlah, 
+        pendaftaran+seragam+buku_pembelajaran+alat_tulis+tas_sekolah+spp_pertama+porseni_asuransi-potongan AS total_biaya
+        FROM biaya_administrasi";
+$biaya_detail = $this->db->query($QRYB)->row_array();
 ?>
 <!-- Begin Page Content -->
 <div class="container-fluid">
@@ -23,7 +29,9 @@ $metode_bayar = $data['metode_bayar'];
         } else if ($user['gambar'] != '' && $dataDaftar['status_bayar'] == 0) { ?>
             <div class="col-md-10 card roounded p-3 mb-3">
                 <form action="<?= base_url('pembayaran') ?>" method="POST">
-                    <strong class="row bg-danger px-2 mx-3 mt-2">Lanjutkan Pembayaran Daftar Ulang</strong>
+                    <strong class="row px-3 py-2 m-2 rounded" style="background-color: salmon;">
+                        Lanjutkan Pembayaran Daftar Ulang
+                    </strong>
                     <div class=" mb-3 row m-2 mt-4">
                         <label for="nama" class="col-sm-3 col-form-label">Nama Lengkap <i style="color: red;">*</i></label>
                         <div class="col-sm-9">
@@ -46,18 +54,72 @@ $metode_bayar = $data['metode_bayar'];
                     <div class=" mb-3 row m-2">
                         <label for="label" class="col-sm-3 col-form-label">&nbsp;</label>
                         <div class="col-sm-9">
-                            <table class="table">
+                            <table class="table table-sm">
                                 <tr>
-                                    <th>Nominal Pembayaran</th>
-                                    <td style="text-align: right;">Rp. 200,000.00</td>
+                                    <td>1. Pendaftaran</td>
+                                    <td style="text-align: right;">Rp.</td>
+                                    <td style="text-align: right; width: 20%;">
+                                        <?= number_format($biaya_detail['pendaftaran']) ?>
+                                        </td>
                                 </tr>
                                 <tr>
-                                    <th>Biaya layanan</th>
-                                    <td style="text-align: right;">Rp. 2,000.00</td>
+                                    <td>2. Seragam (5 stel)</td>
+                                    <td style="text-align: right;">Rp.</td>
+                                    <td style="text-align: right; width: 20%;">
+                                        <?= number_format($biaya_detail['seragam']) ?>
+                                        </tr>
+                                <tr>
+                                    <td>3. Buku Pembelajaran</td>
+                                    <td style="text-align: right;">Rp.</td>
+                                    <td style="text-align: right; width: 20%;">
+                                        <?= number_format($biaya_detail['buku_pembelajaran']) ?>
+                                        </td>
                                 </tr>
                                 <tr>
-                                    <th>Total Bayar</th>
-                                    <td style="text-align: right;">Rp. 2,000.00</td>
+                                    <td>4. Alat - alat tulis</td>
+                                    <td style="text-align: right;">Rp.</td>
+                                    <td style="text-align: right; width: 20%;">
+                                        <?= number_format($biaya_detail['alat_tulis'] ) ?>
+                                        </tr>
+                                <tr>
+                                    <td>5. Tas Sekolah</td>
+                                    <td style="text-align: right;">Rp.</td>
+                                    <td style="text-align: right; width: 20%;">
+                                        <?= number_format($biaya_detail['tas_sekolah']) ?>
+                                        </td>
+                                </tr>
+                                <tr>
+                                    <td>6. SPP Pertama</td>
+                                    <td style="text-align: right;">Rp.</td>
+                                    <td style="text-align: right; width: 20%;">
+                                        <?= number_format($biaya_detail['spp_pertama']) ?>
+                                        </td>
+                                </tr>
+                                <tr>
+                                    <td>7. Porseni & Asuransi</td>
+                                    <td style="text-align: right;">Rp.</td>
+                                    <td style="text-align: right; width: 20%;">
+                                        <?= number_format($biaya_detail['porseni_asuransi']) ?>
+                                        </td>
+                                </tr>
+                                <tr style="border-top: 2px solid #000;">
+                                    <th><i>Jumlah</i></th>
+                                    <td style="text-align: right;">Rp.</td>
+                                    <td style="text-align: right; width: 20%;">
+                                        <?= number_format($biaya_detail['jumlah']) ?>
+                                        </tr>
+                                <tr>
+                                    <th><i>Potongan</i></th>
+                                    <td style="text-align: right;">Rp.</td>
+                                    <td style="text-align: right; width: 20%;">-
+                                        <?= number_format($biaya_detail['potongan']) ?>
+                                        </tr>
+                                <tr style="border-top: 2px solid #000;">
+                                    <th><i>Total Bayar</i></th>
+                                    <td style="text-align: right;">Rp.</td>
+                                    <td style="text-align: right; width: 20%;">
+                                        <?= number_format($biaya_detail['total_biaya']) ?>
+                                        </td>
                                 </tr>
                             </table>
                         </div>

@@ -31,16 +31,23 @@ $data = json_decode(json_encode($pageInfo), True);
     </div>
     <!-- Nav Item - Tables -->
     <li class="nav-item <?php echo $data['active'] == 'Daftar' ? 'active' : '' ?>">
-        <a class="nav-link" href="<?= base_url('daftar') ?>">
+        <a class="nav-link" href="<?= base_url('registration') ?>">
             <i class="fas fa-fw fa-file" aria-hidden="true"></i>
             <span>Pendaftaran</span>
         </a>
     </li>
     <!-- Nav Item - Tables -->
     <li class="nav-item <?php echo $data['active'] == 'Pembayaran' ? 'active' : '' ?>">
-        <a class="nav-link" href="<?= base_url('daftar_ulang') ?>">
+        <a class="nav-link" href="<?= base_url('payment-re-registration') ?>">
             <i class="fas fa-fw fa-dollar-sign" aria-hidden="true"></i>
-            <span>Pembayaran</span>
+            <span>Pembayaran Pendaftaran</span>
+        </a>
+    </li>
+    <!-- Nav Item - Tables -->
+    <li class="nav-item <?php echo $data['active'] == 'spp' ? 'active' : '' ?>">
+        <a class="nav-link" href="<?= base_url('spp-payment') ?>">
+            <i class="fas fa-fw fa-dollar-sign" aria-hidden="true"></i>
+            <span>Pembayaran Spp</span>
         </a>
     </li>
     <!-- Nav Item - Tables -->

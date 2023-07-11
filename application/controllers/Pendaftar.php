@@ -91,6 +91,52 @@ class Pendaftar extends BaseController
         redirect('pendaftar');
     }
 
+    function save_file()
+    {
+        $cekSessionUser = cekSessionUser();
+        $me = $cekSessionUser;
+
+        $post = $this->input->post(null, true); 
+
+        $config['upload_path']          = './assets/img/lampiran/';
+        $config['allowed_types']        = 'gif|jpg|jpeg|png';
+        $config['max_size']             = 1024;
+
+        $this->load->library('upload', $config);
+
+        if (!$this->upload->do_upload('file_akta')) {
+            $result_a = array('message' => $this->upload->display_errors()); 
+            // $this->loadViews('pendaftar/pendaftaran', $error);
+        } else {
+            $result_a = array('message' => $this->upload->data()); 
+
+            // $this->loadViews('pendaftar/pendaftaran', $data);
+        }
+        $upload_data1 = $this->upload->data(); //Returns array of containing all of the data related to the file you uploaded.
+        $file_akta = $upload_data1['file_name'];
+
+        if (!$this->upload->do_upload('file_kk')) {
+            $result_kk = array('message' => $this->upload->display_errors()); 
+            // $this->loadViews('pendaftar/pendaftaran', $error);
+        } else {
+            $result_kk = array('message' => $this->upload->data()); 
+
+            // $this->loadViews('pendaftar/pendaftaran', $data);
+        }
+        $upload_data2 = $this->upload->data(); //Returns array of containing all of the data related to the file you uploaded.
+        $file_kk = $upload_data2['file_name'];
+
+        $dataInsert = [
+            'nik'   => $me["nik"],
+            'akta_kelahiran' => $file_akta,
+            'kartu_keluarga' => $file_kk
+        ];
+        
+        $insert = $this->db->insert('lampiran_murid', $dataInsert);
+        echo json_decode($insert);
+        // redirect('pendaftar');
+    }
+
     function do_upload_img()
     {
         $cekSessionUser = cekSessionUser();
@@ -103,18 +149,16 @@ class Pendaftar extends BaseController
         $this->load->library('upload', $config);
 
         if (!$this->upload->do_upload('fotoDiri')) {
-            $error = array('error' => $this->upload->display_errors());
-            print_r($error);
+            $error = array('error' => $this->upload->display_errors()); 
             // $this->loadViews('pendaftar/pendaftaran', $error);
         } else {
-            $data = array('upload_data' => $this->upload->data());
-            echo $data;
+            $data = array('upload_data' => $this->upload->data()); 
 
             // $this->loadViews('pendaftar/pendaftaran', $data);
         }
         $upload_data = $this->upload->data(); //Returns array of containing all of the data related to the file you uploaded.
         $file_name = $upload_data['file_name'];
-
+        // pre($file_name); die();
         $this->db->update('murid', ['gambar' => $file_name], ['id' => $me['id']]);
         redirect('pendaftar');
     }
@@ -133,14 +177,17 @@ class Pendaftar extends BaseController
 
         $register = $this->db->get_where('pendaftar', ['murid_id' => $cekSessionUser['id']]);
         $checkRegister = $register->num_rows();
+        // $dataDaftar = $register->row_array();
+
+        $register = $this->db->get_where('transaksi', ['nik' => $cekSessionUser['nik']]);
         $dataDaftar = $register->row_array();
-        // pre($dataDaftar['status_bayar']);
-        if ($checkRegister) {
-            if ($dataDaftar['status_bayar']) {
-                $this->next_pembayaran();
-            } else {
-                $this->loadViews('pendaftar/bayar_daftar_ulang', $this->global, $data, NULL, TRUE);
-            }
+        
+        if ($checkRegister != '' && $dataDaftar != '') {
+            $this->next_pembayaran();
+            // if ($dataDaftar['status_bayar']) {
+            // } else {
+            //     $this->loadViews('pendaftar/bayar_daftar_ulang', $this->global, $data, NULL, TRUE);
+            // }
         } else {
             $this->loadViews('pendaftar/bayar_daftar_ulang', $this->global, $data, NULL, TRUE);
         }
@@ -150,11 +197,11 @@ class Pendaftar extends BaseController
     {
         cekSessionUser();
         $cekSessionUser = cekSessionUser();
-
-        $register = $this->db->get_where('pendaftar', ['murid_id' => $cekSessionUser['id']]);
+        
+        $register = $this->db->get_where('transaksi', ['nik' => $cekSessionUser['nik']]);
         $dataDaftar = $register->row_array();
 
-        if ($dataDaftar['status_bayar'] == 0) {
+        if (!$dataDaftar) {
             $nik = $this->input->post('nik');
             $murid_id = $this->input->post('murid_id');
             $metode_bayar = $this->input->post('metode_bayar');
@@ -174,6 +221,7 @@ class Pendaftar extends BaseController
 
             $dataTr = [
                 'nomor'         => $nomorTr,
+                'kode_spp'      => date('m'),
                 'nik'           => $nik,
                 'tanggal'       => date('Y-m-d'),
                 'tahun'         => date('Y'),
@@ -182,12 +230,11 @@ class Pendaftar extends BaseController
 
             $result = $this->db->insert('transaksi', $dataTr);
         } else {
-            $result = '';
-            // die();
+            $result = ''; 
         }
 
         if ($result) {
-            $this->db->update('pendaftar', ['status_bayar' => 1], ['murid_id' => $murid_id]);
+            // $this->db->update('pendaftar', ['status_bayar' => 1], ['murid_id' => $murid_id]);
         }
 
         $this->form_validation->set_rules('metode_bayar', 'Pilih Pembayaran', 'trim|required|valid_email', [
@@ -247,7 +294,7 @@ class Pendaftar extends BaseController
         $upload_data = $this->upload->data(); //Returns array of containing all of the data related to the file you uploaded.
         $file_name = $upload_data['file_name'];
 
-        $this->db->update('pendaftar', ['gambar' => $file_name], ['murid_id' => $me['id']]);
-        redirect('daftar_ulang');
+        $this->db->update('transaksi', ['gambar' => $file_name], ['nik' => $me['nik']]);
+        redirect('payment-re-registration');
     }
 }

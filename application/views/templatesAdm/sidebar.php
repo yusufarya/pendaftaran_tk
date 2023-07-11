@@ -32,7 +32,7 @@ $data = json_decode(json_encode($pageInfo), True);
     </div>
     <!-- Nav Item - Tables -->
     <li class="nav-item <?php echo $data['active'] == 'Pendaftaran' ? 'active' : '' ?>">
-        <a class="nav-link" href="<?= base_url('registration') ?>">
+        <a class="nav-link" href="<?= base_url('registrationList') ?>">
             <i class="fas fa-fw fa-file"></i>
             <span>Data Pendaftaran</span>
         </a>
@@ -52,6 +52,9 @@ $data = json_decode(json_encode($pageInfo), True);
         </a>
         <div id="trbl" class="collapse <?php echo $data['active'] == 'payment' ? 'show' : '' ?>" aria-labelledby="headingPages" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
+                <a class="collapse-item <?php if ($this->uri->segment(1) == "administrativeCost") {
+                                            echo "active";
+                                        } ?>" href="<?= base_url('administrativeCost') ?>">Biaya Administrasi</a>
                 <a class="collapse-item <?php if ($this->uri->segment(1) == "reRegistrationPayment") {
                                             echo "active";
                                         } ?>" href="<?= base_url('reRegistrationPayment') ?>">Pembayaran Pendaftaran</a>

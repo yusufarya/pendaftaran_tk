@@ -61,18 +61,24 @@ $route['logoutAdmin'] = 'Login/logout_adm';
 $route['dashboard'] = 'Dashboard';
 
 // Master Data registration //
-$route['registration'] = 'Admin/registration';
+$route['registrationList'] = 'Admin/registration';
+$route['getPaymentRegister'] = 'Admin/getPaymentRegister';
 $route['student'] = 'Admin/student';
 
 // Pembayaran //
+$route['administrativeCost'] = 'Payment/administrativeCost';
+$route['update_biaya_administrasi'] = 'Payment/update_biaya_administrasi';
 $route['reRegistrationPayment'] = 'Payment/reRegistrationPayment';
 $route['sppPayment'] = 'Payment/sppPayment';
 
 // PELANGGAN // 
 $route['logout'] = 'Login/logout';
 $route['home'] = 'Murid';
-$route['daftar'] = 'Pendaftar/index';
-$route['daftar_ulang'] = 'Pendaftar/bayar_daftar_ulang';
+$route['registration'] = 'Pendaftar/index';
+$route['payment-re-registration'] = 'Pendaftar/bayar_daftar_ulang';
 $route['pembayaran'] = 'Pendaftar/next_pembayaran';
 $route['buktiPembayaran'] = 'Pendaftar/buktiPembayaran';
 $route['send_trx'] = 'Pendaftar/updateBayar';
+
+// SPP //
+$route['spp-payment'] = 'Murid/sppPayment';

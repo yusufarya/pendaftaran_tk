@@ -6,6 +6,9 @@ $register = $this->db->get_where('pendaftar', ['murid_id' => $user['id']]);
 $checkRegister = $register->num_rows();
 $dataDaftar = $register->row_array();
 
+$qry_byr = $this->db->get_where('transaksi', ['nik' => $user['nik']]); 
+$nl_trs = $qry_byr->row_array();
+
 $metode_bayar = $data['metode_bayar'];
 ?>
 <!-- Begin Page Content -->
@@ -19,7 +22,7 @@ $metode_bayar = $data['metode_bayar'];
     <?php if ($user['gambar'] != '' && $dataDaftar['status_bayar'] == 0) { ?>
         <div class="col-md-10 card roounded p-3 mb-3">
             <form action="<?= base_url('send_trx') ?>" method="POST" enctype="multipart/form-data">
-                <strong class="row bg-danger px-2 mx-3 mt-2">Kirimkan Bukti Pembayaran Daftar Ulang</strong>
+                <strong class="row alert alert-danger px-3 mx-3 mt-2">Kirimkan Bukti Pembayaran Daftar Ulang</strong>
                 <div class=" mb-3 row m-2 mt-4">
                     <label for="nama" class="col-sm-3 col-form-label">Nama Lengkap <i style="color: red;">*</i></label>
                     <div class="col-sm-9">
@@ -30,7 +33,7 @@ $metode_bayar = $data['metode_bayar'];
                 <div class=" mb-3 row m-2 mt-4">
                     <label for="nama" class="col-sm-3 col-form-label">No. Transaksi <i style="color: red;">*</i></label>
                     <div class="col-sm-9">
-                        <input type="text" class="form-control" id="nama" name="nama" value="<?= $dataDaftar['no_transaksi'] ?>" required readonly>
+                        <input type="text" class="form-control" id="nama" name="nama" value="<?= $nl_trs['nomor'] ?>" required readonly>
                     </div>
                 </div>
                 <div class=" mb-3 row m-2 mt-4">
