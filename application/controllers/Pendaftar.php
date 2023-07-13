@@ -41,15 +41,25 @@ class Pendaftar extends BaseController
         $usia = $post['usia'];
         $no_telp = $post['no_telp'];
         // Data Wali //
-        $nama_w = ucwords($post['nama_w']);
-        $jenis_kel_w = $post['jenis_kel_w'];
-        $nik_w = $post['nik_w'];
-        $tempat_lahir_w = ucwords($post['tempat_lahir_w']);
-        $tgl_lahir_w = $post['tgl_lahir_w'];
-        $alamat_w = ucwords($post['alamat_w']);
-        $negara_w = ucwords($post['negara_w']);
-        $no_telp_w = $post['no_telp_w'];
-        $email_w = $post['email_w'];
+        $nama_w1 = ucwords($post['nama_w1']);
+        $jenis_kel_w1 = $post['jenis_kel_w1'];
+        $nik_w1 = $post['nik_w1'];
+        $tempat_lahir_w1 = ucwords($post['tempat_lahir_w1']);
+        $tgl_lahir_w1 = $post['tgl_lahir_w1'];
+        $alamat_w1 = ucwords($post['alamat_w1']);
+        $negara_w1 = ucwords($post['negara_w1']);
+        $no_telp_w1 = $post['no_telp_w1'];
+        $email_w1 = $post['email_w1'];
+        // Data Wali //
+        $nama_w2 = ucwords($post['nama_w2']);
+        $jenis_kel_w2 = $post['jenis_kel_w2'];
+        $nik_w2 = $post['nik_w2'];
+        $tempat_lahir_w2 = ucwords($post['tempat_lahir_w2']);
+        $tgl_lahir_w2 = $post['tgl_lahir_w2'];
+        $alamat_w2 = ucwords($post['alamat_w2']);
+        $negara_w2 = ucwords($post['negara_w2']);
+        $no_telp_w2 = $post['no_telp_w2'];
+        $email_w2 = $post['email_w2'];
 
         $dataMurid = [
             'nama'      => $nama,
@@ -66,19 +76,35 @@ class Pendaftar extends BaseController
         ];
         $this->db->update('murid', $dataMurid, ['id' => $me['id']]);
 
-        $dataWali = [
-            'nama'      => $nama_w,
-            'jenis_kel' => $jenis_kel_w,
-            'nik'       => $nik_w,
-            'tempat_lahir'   => $tempat_lahir_w,
-            'tgl_lahir'   => $tgl_lahir_w,
-            'alamat'   => $alamat_w,
-            'negara'   => $negara_w,
-            'no_telp'   => $no_telp_w,
-            'email'   => $email_w,
+        $dataAyah = [
+            'flag' => 1,
+            'nama'      => $nama_w1,
+            'jenis_kel' => $jenis_kel_w1,
+            'nik'       => $nik_w1,
+            'tempat_lahir'   => $tempat_lahir_w1,
+            'tgl_lahir'   => $tgl_lahir_w1,
+            'alamat'   => $alamat_w1,
+            'negara'   => $negara_w1,
+            'no_telp'   => $no_telp_w1,
+            'email'   => $email_w1,
             'murid_id'   => $me['id']
         ];
-        $this->db->insert('wali_murid', $dataWali);
+        $this->db->insert('wali_murid', $dataAyah);
+
+        $dataIbu = [
+            'flag' => 2,
+            'nama'      => $nama_w2,
+            'jenis_kel' => $jenis_kel_w2,
+            'nik'       => $nik_w2,
+            'tempat_lahir'   => $tempat_lahir_w2,
+            'tgl_lahir'   => $tgl_lahir_w2,
+            'alamat'   => $alamat_w2,
+            'negara'   => $negara_w2,
+            'no_telp'   => $no_telp_w2,
+            'email'   => $email_w2,
+            'murid_id'   => $me['id']
+        ];
+        $this->db->insert('wali_murid', $dataIbu);
 
         $dataPendaftar = [
             'id'        => rand(10000000, 99999999),

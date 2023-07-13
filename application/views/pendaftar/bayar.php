@@ -5,6 +5,7 @@ $register = $this->db->select('dt.*, tr.metode_bayar, tr.nomor AS no_transaksi, 
     ->from('pendaftar dt')
     ->join('murid AS m', 'm.id=dt.murid_id')
     ->join('transaksi AS tr', 'tr.nik=m.nik')
+    ->where('m.nik', $user['nik'])
     ->get()->row_array();
 // pre($register);
 
@@ -15,7 +16,6 @@ $metode_bayar = $data['metode_bayar'];
 $getRekening = $this->db->get_where('metode_pembayaran', ['id' => $idByr])->row_array();
 $namaBank = $getRekening['nama'];
 $noRek = $getRekening['no_rek'];
-
 
 $QRYB = "SELECT pendaftaran+seragam+buku_pembelajaran+alat_tulis+tas_sekolah+spp_pertama+porseni_asuransi-potongan AS total_biaya
         FROM biaya_administrasi";

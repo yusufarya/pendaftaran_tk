@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 12 Jul 2023 pada 01.49
+-- Waktu pembuatan: 13 Jul 2023 pada 18.43
 -- Versi server: 10.4.24-MariaDB
 -- Versi PHP: 8.0.19
 
@@ -47,9 +47,17 @@ INSERT INTO `biaya_administrasi` (`pendaftaran`, `seragam`, `buku_pembelajaran`,
 
 CREATE TABLE `kelas` (
   `id` int(11) NOT NULL,
-  `inisial` varchar(5) NOT NULL,
+  `kode` varchar(5) NOT NULL,
   `kelompok` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `kelas`
+--
+
+INSERT INTO `kelas` (`id`, `kode`, `kelompok`) VALUES
+(1, 'A', 'Laba - laba'),
+(2, 'B', 'Kunang - Kunang');
 
 -- --------------------------------------------------------
 
@@ -98,7 +106,8 @@ CREATE TABLE `lampiran_murid` (
 --
 
 INSERT INTO `lampiran_murid` (`id`, `nik`, `akta_kelahiran`, `kartu_keluarga`) VALUES
-(7, '0120120120120120', 'userDefault4.jpg', 'userDefault5.jpg');
+(7, '0120120120120120', 'userDefault4.jpg', 'userDefault5.jpg'),
+(8, '3603123654002002', 'userDefault6.jpg', 'userDefault7.jpg');
 
 -- --------------------------------------------------------
 
@@ -154,8 +163,9 @@ CREATE TABLE `murid` (
 --
 
 INSERT INTO `murid` (`id`, `nama`, `jenis_kel`, `nik`, `tempat_lahir`, `tgl_lahir`, `no_telp`, `alamat`, `negara`, `tinggal_bersama`, `anak_ke`, `usia`, `email`, `password`, `status`, `kelas_id`, `gambar`, `tgl_dibuat`) VALUES
-(1, 'Yusuf Aryadilla', 'Laki-laki', '0120120120120120', 'Jakarta, Indonesia', '2023-07-11', '08122346789', 'Tangerang Banten\r\nIndonesia', 'Indonesia', 'Orang Tua', '1', 4, 'yy@gmail.com', '$2y$10$2T67sy8ip1i1OENpPOP4LOhR2nJWOLSzkHW3lz8jZMA/CgnGjVITG', 0, 0, 'userDefault1.jpg', '2023-06-14'),
-(5, 'Rerere Re', 'Perempuan', '3603123456789020', 'Jakarta', '2023-07-03', '098908900099', 'Tangerang Banten', '', '', '', 0, 'rere@gmail.com', '$2y$10$NxjiPnpLDLuQxCcAKonCVel2gwzi/ltDCVurErCdxAhw4QpdMXLW2', 0, 0, 'user.jpg', '2023-06-27');
+(1, 'Yusuf Aryadilla', 'Laki-laki', '0120120120120120', 'Jakarta, Indonesia', '2023-07-11', '08122346789', 'Tangerang Banten\r\nIndonesia', 'Indonesia', 'Orang Tua', '1', 4, 'yy@gmail.com', '$2y$10$2T67sy8ip1i1OENpPOP4LOhR2nJWOLSzkHW3lz8jZMA/CgnGjVITG', 1, 1, 'userDefault1.jpg', '2023-06-14'),
+(5, 'Rerere Re', 'Perempuan', '3603123456789020', 'Jakarta', '2023-07-03', '098908900099', 'Tangerang Banten', '', '', '', 0, 'rere@gmail.com', '$2y$10$NxjiPnpLDLuQxCcAKonCVel2gwzi/ltDCVurErCdxAhw4QpdMXLW2', 0, 0, 'user.jpg', '2023-06-27'),
+(6, 'Muhamad Fadil', 'Laki-laki', '3603123654002002', 'Jakarta, Indonesia', '2023-07-12', '089089089009', 'Tangerang Banten', 'Indonesia', '', '1', 6, 'fadil@gmail.com', '$2y$10$azubm4OuqtXpx/WSO0rBC.B/w.tlde/LK06fwOASbGLwuOu8Nh.Si', 1, 2, 'userDefault2.jpg', '2023-07-12');
 
 -- --------------------------------------------------------
 
@@ -175,8 +185,9 @@ CREATE TABLE `pendaftar` (
 --
 
 INSERT INTO `pendaftar` (`id`, `murid_id`, `status_bayar`, `tanggal`) VALUES
-(14306736, 1, 0, '2023-07-11'),
-(23620705, 5, 0, '2023-07-03');
+(14306736, 1, 1, '2023-07-11'),
+(23620705, 5, 0, '2023-07-03'),
+(72861591, 6, 1, '2023-07-12');
 
 -- --------------------------------------------------------
 
@@ -201,7 +212,8 @@ CREATE TABLE `transaksi` (
 --
 
 INSERT INTO `transaksi` (`nomor`, `nik`, `tanggal`, `kode_spp`, `tahun`, `harga`, `keterangan`, `metode_bayar`, `gambar`) VALUES
-('TRGS2023070001', '0120120120120120', '2023-07-11', '07', '2023', 0, NULL, '1', 'userDefault1.jpg');
+('TRGS2023070001', '0120120120120120', '2023-07-11', '07', '2023', 0, NULL, '1', 'userDefault1.jpg'),
+('TRGS2023070002', '3603123654002002', '2023-07-12', '07', '2023', 0, NULL, '3', 'struk_bri.jpeg');
 
 -- --------------------------------------------------------
 
@@ -253,21 +265,23 @@ CREATE TABLE `wali_murid` (
   `status` int(1) DEFAULT 0,
   `murid_id` int(11) NOT NULL,
   `gambar` varchar(11) NOT NULL,
-  `tgl_dibuat` date NOT NULL
+  `tgl_dibuat` date NOT NULL,
+  `flag` int(1) NOT NULL COMMENT '1 = ''Ayah'', 2 = ''Ibu'''
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data untuk tabel `wali_murid`
 --
 
-INSERT INTO `wali_murid` (`id`, `nama`, `jenis_kel`, `nik`, `tempat_lahir`, `tgl_lahir`, `no_telp`, `alamat`, `email`, `negara`, `status`, `murid_id`, `gambar`, `tgl_dibuat`) VALUES
-(3, 'Yy', 'Laki-laki', '3016000000808908', 'Tangerang', '2023-06-16', '0898768790000', 'Tangerang Banten\r\nIndonesia', 'aryaherby29nov2k@gmail.com', 'Indonesia', 0, 1, '', '0000-00-00'),
-(4, '', '', '', '', '2023-06-27', '', '', '', '', 0, 5, '', '0000-00-00'),
-(5, '', '', '', 'Jakarta', '2023-07-03', '', '', '', '', 0, 5, '', '0000-00-00'),
-(6, '', '', '', 'Jakarta', '2023-07-03', '', '', '', '', 0, 5, '', '0000-00-00'),
-(7, '', '', '', '', '2023-07-10', '', '', '', '', 0, 1, '', '0000-00-00'),
-(8, 'Wali Y', 'Laki-laki', '3016000000808908', 'Jakarta, Indonesia', '1995-07-10', '0898768790000', 'Tangerang Banten\r\nIndonesia', 'aryaherby29nov2k@gmail.com', 'Indonesia', 0, 1, '', '0000-00-00'),
-(9, 'Wali Y', 'Laki-laki', '', 'Jakarta, Indonesia', '2023-07-11', '', '', '', '', 0, 1, '', '0000-00-00');
+INSERT INTO `wali_murid` (`id`, `nama`, `jenis_kel`, `nik`, `tempat_lahir`, `tgl_lahir`, `no_telp`, `alamat`, `email`, `negara`, `status`, `murid_id`, `gambar`, `tgl_dibuat`, `flag`) VALUES
+(3, 'Yy', 'Laki-laki', '3016000000808908', 'Tangerang', '2023-06-16', '0898768790000', 'Tangerang Banten\r\nIndonesia', 'aryaherby29nov2k@gmail.com', 'Indonesia', 0, 1, '', '0000-00-00', 0),
+(4, '', '', '', '', '2023-06-27', '', '', '', '', 0, 5, '', '0000-00-00', 0),
+(5, '', '', '', 'Jakarta', '2023-07-03', '', '', '', '', 0, 5, '', '0000-00-00', 0),
+(6, '', '', '', 'Jakarta', '2023-07-03', '', '', '', '', 0, 5, '', '0000-00-00', 0),
+(7, '', '', '', '', '2023-07-10', '', '', '', '', 0, 1, '', '0000-00-00', 0),
+(8, 'Wali Y', 'Laki-laki', '3016000000808908', 'Jakarta, Indonesia', '1995-07-10', '0898768790000', 'Tangerang Banten\r\nIndonesia', 'aryaherby29nov2k@gmail.com', 'Indonesia', 0, 1, '', '0000-00-00', 0),
+(10, '', '', '', '', '2023-07-12', '', '', '', '', 0, 6, '', '0000-00-00', 1),
+(12, 'Wali Fadil', '', '', 'Jakarta, Indonesia', '2023-07-12', '', 'Tangerang Banten\r\nIndonesia', 'walifadil@gmail.com', 'Indonesia', 0, 6, '', '0000-00-00', 1);
 
 --
 -- Indexes for dumped tables
@@ -335,13 +349,13 @@ ALTER TABLE `wali_murid`
 -- AUTO_INCREMENT untuk tabel `kelas`
 --
 ALTER TABLE `kelas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT untuk tabel `lampiran_murid`
 --
 ALTER TABLE `lampiran_murid`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT untuk tabel `metode_pembayaran`
@@ -353,7 +367,7 @@ ALTER TABLE `metode_pembayaran`
 -- AUTO_INCREMENT untuk tabel `murid`
 --
 ALTER TABLE `murid`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT untuk tabel `users`
@@ -365,5 +379,5 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT untuk tabel `wali_murid`
 --
 ALTER TABLE `wali_murid`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 COMMIT;

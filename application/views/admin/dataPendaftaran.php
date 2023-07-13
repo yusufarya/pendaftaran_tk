@@ -44,7 +44,7 @@ $order = $data['order'];
                     <th style="text-align:left;">Nik</th>
                     <th style="text-align:left;">Alamat</th>
                     <th style="width:110px; text-align:left;">Tanggal</th>
-                    <th style="width:120px; text-align: center;">Status Bayar</th>
+                    <th style="width:120px; text-align: center;">Kelas</th>
                     <th style="width:8s0px; text-align:center;">Aksi</th>
                 </tr>
             </thead>
@@ -60,12 +60,16 @@ $order = $data['order'];
                         <td><?= $val['alamat'] ?></td>
                         <td><?= date('m-d-Y', strtotime($val['tanggal'])); ?></td>
                         <td style="text-align: center;">
-                            <?= $val['status_bayar'] == 1 ? 'Sudah Lunas' : 'Belum Bayar' ?>
+                            <?= $val['status_bayar'] == 1 ? '
+                            <a href="'.base_url('manageClass/') . $val['id'] .'" class="text-success bg-white">Pembagian Kelas</a> 
+
+                            ' : '
+                            ' ?>
                         </td>
                         <td style="text-align: center;">
                             <!-- <a href="<?= base_url('Transaksi/editTransaksi/') . $val['id'] ?>" class="text-info bg-white"><i class="bi bi-check2-circle"></i> ACC</a> -->
                             
-                            <a href="#" onclick="detailPayment(`<?= $val['nik'] ?>`)" class="text-info bg-white"><i class="bi bi-info"></i> Detail</a>
+                            <a href="#" onclick="detailPayment(`<?= $val['id'] ?>`,`<?= $val['nik'] ?>`,`<?= $val['nama_murid'] ?>`)" class="text-info bg-white"><i class="bi bi-info"></i> Detail</a>
                         </td>
                     </tr>
                 <?php } ?>
@@ -94,7 +98,7 @@ $order = $data['order'];
                     </tr>
                     <tr>
                         <th>TANGGAL</th>
-                        <td id="tgl"></td>
+                        <td id="tanggal"></td>
                     </tr>
                     <tr>
                         <th>METODE PEMBAYARAN</th>
@@ -112,8 +116,8 @@ $order = $data['order'];
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+            <button type="button" class="btn btn-success" id="accPayment">ACC</button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
       </div>
     </div>
   </div>

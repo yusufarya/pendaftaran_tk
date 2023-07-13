@@ -38,6 +38,13 @@ $data = json_decode(json_encode($pageInfo), True);
         </a>
     </li>
     <!-- Nav Item - Tables -->
+    <li class="nav-item <?php echo $data['active'] == 'Kelas' ? 'active' : '' ?>">
+        <a class="nav-link" href="<?= base_url('classList') ?>">
+            <i class="fas fa-fw fa-users"></i>
+            <span>Data Kelas</span>
+        </a>
+    </li>
+    <!-- Nav Item - Tables -->
     <li class="nav-item <?php echo $data['active'] == 'Murid' ? 'active' : '' ?>">
         <a class="nav-link" href="<?= base_url('student') ?>">
             <i class="fas fa-fw fa-users"></i>

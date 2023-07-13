@@ -28,9 +28,17 @@ $cekLampiran = $this->db->get_where('lampiran_murid', ['nik' => $user['nik'], 'a
                             <input class="form-control form-control-sm" id="uploadedfile" name="fotoDiri" type="file">
                         </div>
                     </div>
-                    <div class="col-md-4">
-                        <div style="height: 87%;"></div>
-                        <button type="submit" class="btn btn-primary py-1">Simpan</button>
+                    <div class="col-md-4"> 
+                        <br>
+                        <b class="ms-2 mt-5">Keterangan</b>
+                        <ul>
+                            <li><small>File Max : 1024 kb / 1 mb</small></li>
+                            <li><small>Ukuran Foto 3 X 4 </small></li>
+                            <li><small>Latar belakang berwarna merah </small></li>
+                            <li><small>Berpakaian rapih (pakaian muslim) </small></li>
+                        </ul>
+                        <hr><br>
+                        <button style="bottom: 15px; position:absolute;" type="submit" class="btn btn-primary py-1">Simpan</button> 
                     </div>
                 </div>
             </div>
@@ -152,17 +160,17 @@ $cekLampiran = $this->db->get_where('lampiran_murid', ['nik' => $user['nik'], 'a
                     </div>
                 </div>
                 <!-- DATA WALI -->
-                <strong class="row bg-warning px-2 mx-3 mt-4">Data Wali</strong>
+                <strong class="row bg-warning px-2 mx-3 mt-4">Data Ayah</strong>
                 <div class=" mb-3 row m-2">
-                    <label for="nama_w" class="col-sm-3 col-form-label">Nama Lengkap <i style="color: red;">*</i></label>
+                    <label for="nama_w1" class="col-sm-3 col-form-label">Nama Lengkap <i style="color: red;">*</i></label>
                     <div class="col-sm-9">
-                        <input type="text" class="form-control" id="nama_w" name="nama_w" value="">
+                        <input type="text" class="form-control" id="nama_w1" name="nama_w1" value="" required>
                     </div>
                 </div>
                 <div class=" mb-3 row m-2">
-                    <label for="jenis_kel_w" class="col-sm-3 col-form-label">Jenis Kelamin <i style="color: red;">*</i></label>
+                    <label for="jenis_kel_w1" class="col-sm-3 col-form-label">Jenis Kelamin <i style="color: red;">*</i></label>
                     <div class="col-sm-9">
-                        <select name="jenis_kel_w" id="jenis_kel_w" class="form-select">
+                        <select name="jenis_kel_w1" id="jenis_kel_w1" class="form-select" required>
                             <option value="">Pilih</option>
                             <option value="Laki-laki">Laki-laki</option>
                             <option value="Perempuan">Perempuan</option>
@@ -170,42 +178,99 @@ $cekLampiran = $this->db->get_where('lampiran_murid', ['nik' => $user['nik'], 'a
                     </div>
                 </div>
                 <div class=" mb-3 row m-2">
-                    <label for="nik_w" class="col-sm-3 col-form-label ">NIK <i style="color: red;">*</i></label>
+                    <label for="nik_w1" class="col-sm-3 col-form-label ">NIK <i style="color: red;">*</i></label>
                     <div class="col-sm-9">
-                        <input type="text" name="nik_w" id="nik_w" class="form-control" maxlength="16">
+                        <input type="text" name="nik_w1" id="nik_w1" class="form-control" maxlength="16" required>
                     </div>
                 </div>
                 <div class=" mb-3 row m-2">
-                    <label for="tempat_lahir_w" class="col-sm-3 col-form-label">Tempat / Tgl. Lahir <i style="color: red;">*</i></label>
+                    <label for="tempat_lahir_w1" class="col-sm-3 col-form-label">Tempat / Tgl. Lahir <i style="color: red;">*</i></label>
                     <div class="col-sm-5">
-                        <input type="text" name="tempat_lahir_w" id="tempat_lahir_w" class="form-control" value="<?= $user['tempat_lahir'] ?>">
+                        <input type="text" name="tempat_lahir_w1" id="tempat_lahir_w1" class="form-control" value="<?= $user['tempat_lahir'] ?>">
                     </div>
                     <div class="col-sm-4">
-                        <input type="date" class="form-control" id="tgl_lahir_w" name="tgl_lahir_w" value="<?= date('Y-m-d') ?>">
+                        <input type="date" class="form-control" id="tgl_lahir_w1" name="tgl_lahir_w1" value="<?= date('Y-m-d') ?>">
                     </div>
                 </div>
                 <div class=" mb-3 row m-2">
-                    <label for="alamat_w" class="col-sm-3 col-form-label">Alamat Lengkap <i style="color: red;">*</i></label>
+                    <label for="alamat_w1" class="col-sm-3 col-form-label">Alamat Lengkap <i style="color: red;">*</i></label>
                     <div class="col-sm-9">
-                        <textarea type="text" class="form-control" id="alamat_w" name="alamat_w" placeholder="Tambahkan alamat..."></textarea>
+                        <textarea type="text" class="form-control" id="alamat_w1" name="alamat_w1" placeholder="Tambahkan alamat..."></textarea>
                     </div>
                 </div>
                 <div class=" mb-3 row m-2">
-                    <label for="negara_w" class="col-sm-3 col-form-label">Kewarganegaraan <i style="color: red;">*</i></label>
+                    <label for="negara_w1" class="col-sm-3 col-form-label">Kewarganegaraan <i style="color: red;">*</i></label>
                     <div class="col-sm-9">
-                        <input type="text" name="negara_w" id="negara_w" class="form-control">
+                        <input type="text" name="negara_w1" id="negara_w1" class="form-control">
                     </div>
                 </div>
                 <div class=" mb-3 row m-2">
-                    <label for="no_telp_w" class="col-sm-3 col-form-label">No. Telp Wali <i style="color: red;">*</i></label>
+                    <label for="no_telp_w1" class="col-sm-3 col-form-label">No. Telp Wali <i style="color: red;">*</i></label>
                     <div class="col-sm-9">
-                        <input type="text" name="no_telp_w" id="no_telp_w" class="form-control" value="">
+                        <input type="text" name="no_telp_w1" id="no_telp_w1" class="form-control" value="">
                     </div>
                 </div>
                 <div class=" mb-3 row m-2">
-                    <label for="email_w" class="col-sm-3 col-form-label">Email <i style="color: red;">*</i></label>
+                    <label for="email_w1" class="col-sm-3 col-form-label">Email <i style="color: red;">*</i></label>
                     <div class="col-sm-9">
-                        <input type="text" name="email_w" id="email_w" class="form-control" placeholder="nama@gmail.com">
+                        <input type="text" name="email_w1" id="email_w1" class="form-control" placeholder="nama@gmail.com">
+                    </div>
+                </div>
+                <!-- DATA WALI -->
+                <strong class="row bg-warning px-2 mx-3 mt-4">Data Ibu</strong>
+                <div class=" mb-3 row m-2">
+                    <label for="nama_w2" class="col-sm-3 col-form-label">Nama Lengkap <i style="color: red;">*</i></label>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control" id="nama_w2" name="nama_w2" value="" required>
+                    </div>
+                </div>
+                <div class=" mb-3 row m-2">
+                    <label for="jenis_kel_w2" class="col-sm-3 col-form-label">Jenis Kelamin <i style="color: red;">*</i></label>
+                    <div class="col-sm-9">
+                        <select name="jenis_kel_w2" id="jenis_kel_w2" class="form-select" required>
+                            <option value="">Pilih</option>
+                            <option value="Laki-laki">Laki-laki</option>
+                            <option value="Perempuan">Perempuan</option>
+                        </select>
+                    </div>
+                </div>
+                <div class=" mb-3 row m-2">
+                    <label for="nik_w2" class="col-sm-3 col-form-label ">NIK <i style="color: red;">*</i></label>
+                    <div class="col-sm-9">
+                        <input type="text" name="nik_w2" id="nik_w2" class="form-control" maxlength="16" required>
+                    </div>
+                </div>
+                <div class=" mb-3 row m-2">
+                    <label for="tempat_lahir_w2" class="col-sm-3 col-form-label">Tempat / Tgl. Lahir <i style="color: red;">*</i></label>
+                    <div class="col-sm-5">
+                        <input type="text" name="tempat_lahir_w2" id="tempat_lahir_w2" class="form-control" value="<?= $user['tempat_lahir'] ?>">
+                    </div>
+                    <div class="col-sm-4">
+                        <input type="date" class="form-control" id="tgl_lahir_w2" name="tgl_lahir_w2" value="<?= date('Y-m-d') ?>">
+                    </div>
+                </div>
+                <div class=" mb-3 row m-2">
+                    <label for="alamat_w2" class="col-sm-3 col-form-label">Alamat Lengkap <i style="color: red;">*</i></label>
+                    <div class="col-sm-9">
+                        <textarea type="text" class="form-control" id="alamat_w2" name="alamat_w2" placeholder="Tambahkan alamat..."></textarea>
+                    </div>
+                </div>
+                <div class=" mb-3 row m-2">
+                    <label for="negara_w2" class="col-sm-3 col-form-label">Kewarganegaraan <i style="color: red;">*</i></label>
+                    <div class="col-sm-9">
+                        <input type="text" name="negara_w2" id="negara_w2" class="form-control">
+                    </div>
+                </div>
+                <div class=" mb-3 row m-2">
+                    <label for="no_telp_w2" class="col-sm-3 col-form-label">No. Telp Wali <i style="color: red;">*</i></label>
+                    <div class="col-sm-9">
+                        <input type="text" name="no_telp_w2" id="no_telp_w2" class="form-control" value="">
+                    </div>
+                </div>
+                <div class=" mb-3 row m-2">
+                    <label for="email_w2" class="col-sm-3 col-form-label">Email <i style="color: red;">*</i></label>
+                    <div class="col-sm-9">
+                        <input type="text" name="email_w2" id="email_w2" class="form-control" placeholder="nama@gmail.com">
                     </div>
                 </div>
                 <div class="mb-3 row mr-2" style="float: right;">

@@ -19,12 +19,20 @@ $biaya_detail = $this->db->query($QRYB)->row_array();
 
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-3">
-        <h1 class="h3 mb-0 text-black-800 shadow py-2">Form <?= $data['title'] ?> </h1>
+        <h1 class="h3 mb-0 text-black-800 shadow p-2 px-3">Form <?= $data['title'] ?> </h1>
     </div>
-
+    
     <?php if ($checkRegister > 0) {
         if (!$user['gambar']) { ?>
             <!-- Belum Upload Foto Diri -->
+            <div class="alert alert-danger">
+                Anda Belum Menyelesaikan Proses Pendaftaran.
+            </div>
+            <a href="<?= base_url('registration') ?>" class="text-decoration-none ms-1 shadow p-1 rounded">
+                Lanjutkan proses pendaftaran
+            </a>
+            </div>
+            </div>
         <?php
         } else if ($user['gambar'] != '' && $dataDaftar['status_bayar'] == 0) { ?>
             <div class="col-md-10 card roounded p-3 mb-3">
@@ -140,6 +148,9 @@ $biaya_detail = $this->db->query($QRYB)->row_array();
 
     <?php } else { ?>
         <!-- Belum Daftar -->
+        <div class="alert alert-danger">
+            Anda Belum Menyelesaikan Proses Pendaftaran.
+        </div>
     <?php } ?>
 </div>
 

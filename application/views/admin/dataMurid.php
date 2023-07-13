@@ -42,6 +42,7 @@ $order = $data['order'];
                     <th style="width:3%;">Id</th>
                     <th>Nama</th>
                     <th style="text-align:left;">Nik</th>
+                    <th style="text-align:left;">Kelas</th>
                     <th style="text-align:left;">Alamat</th>
                     <th style="width:110px; text-align:left;">Tgl. Lahir</th>
                     <!-- <th style="width:120px; text-align: center;">Status Bayar</th> -->
@@ -57,6 +58,7 @@ $order = $data['order'];
                             <a class="text-decoration-none" href="<?= base_url('detailMurid/') . $val['id'] ?>"><?= $val['nama'] ?></a>
                         </td>
                         <td><?= $val['nik'] ?></td>
+                        <td><?= $val['kelompok'] ?></td>
                         <td><?= $val['alamat'] ?></td>
                         <td><?= date('m-d-Y', strtotime($val['tgl_lahir'])); ?></td>
                         <td style="text-align: center;">

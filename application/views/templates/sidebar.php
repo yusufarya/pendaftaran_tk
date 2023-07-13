@@ -16,12 +16,12 @@ $data = json_decode(json_encode($pageInfo), True);
     <hr class="sidebar-divider my-0">
 
     <!-- Nav Item - Dashboard -->
-    <li class="nav-item <?php echo $data['active'] == 'Home' ? 'active' : '' ?>">
+    <!-- <li class="nav-item <?php echo $data['active'] == 'Home' ? 'active' : '' ?>">
         <a class="nav-link" href="<?= base_url('home') ?>">
             <i class="fas fa-fw fa-home"></i>
             <span>Home Murid</span>
         </a>
-    </li>
+    </li> -->
 
     <!-- Divider -->
     <hr class="sidebar-divider d-none d-md-block">

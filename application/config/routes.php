@@ -62,8 +62,11 @@ $route['dashboard'] = 'Dashboard';
 
 // Master Data registration //
 $route['registrationList'] = 'Admin/registration';
+$route['manageClass/(:any)'] = 'Admin/manageClass/$1';
 $route['getPaymentRegister'] = 'Admin/getPaymentRegister';
+$route['classList'] = 'Admin/classList';
 $route['student'] = 'Admin/student';
+
 
 // Pembayaran //
 $route['administrativeCost'] = 'Payment/administrativeCost';

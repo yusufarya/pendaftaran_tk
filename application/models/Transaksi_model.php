@@ -25,8 +25,9 @@ class Transaksi_model extends CI_Model
     function getDataMurid($searchText = '', $orderText = '')
     {
         $this->db->distinct();
-        $this->db->select('m.*');
+        $this->db->select('m.*, k.kelompok');
         $this->db->from('murid m');
+        $this->db->join('kelas k', 'k.id=m.kelas_id');
         $this->db->where('m.status', 1);
         if ($searchText) {
             $this->db->like('m.nama', $searchText)->or_like('u.nik', $searchText);
