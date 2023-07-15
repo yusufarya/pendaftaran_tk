@@ -29,7 +29,7 @@ $dataKelasB = $this->db->get_where('kelas', ['kode' => 'B'])->result_array();
             <?php foreach ($dataKelasA as $rowA) { ?>
                 <div class="card">
                     <div class="card-body">
-                        <a href="" class="text-dark text-decoration-none">
+                        <a href="<?= base_url('kelasDetail/') . $rowA['id'] ?>" class="text-dark text-decoration-none">
                             ⚫ <b><?= $rowA['kelompok'] ?></b>
                         </a>
                     </div>
@@ -46,7 +46,7 @@ $dataKelasB = $this->db->get_where('kelas', ['kode' => 'B'])->result_array();
             <?php foreach ($dataKelasB as $rowB) { ?>
                 <div class="card">
                     <div class="card-body">
-                        <a href="" class="text-dark text-decoration-none">
+                        <a href="<?= base_url('kelasDetail/') . $rowB['id'] ?>" class="text-dark text-decoration-none">
                             ⚫ <b><?= $rowB['kelompok'] ?></b>
                         </a>
                     </div>

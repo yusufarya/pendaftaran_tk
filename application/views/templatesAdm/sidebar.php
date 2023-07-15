@@ -100,19 +100,19 @@ $data = json_decode(json_encode($pageInfo), True);
     <hr class="sidebar-divider d-none d-md-block">
 
     <!-- Heading -->
-    <div class="sidebar-heading">
+    <!-- <div class="sidebar-heading">
         Pengaturan
-    </div>
+    </div> -->
     <!-- Nav Item - Tables -->
-    <li class="nav-item <?php echo $data['active'] == 'Password' ? 'active' : '' ?>">
+    <!-- <li class="nav-item <?php echo $data['active'] == 'Password' ? 'active' : '' ?>">
         <a class="nav-link" href="<?= base_url('admin/ubahPassword') ?>">
             <i class="fas fa-fw fa-table"></i>
             <span>Ubah Kata Sandi</span>
         </a>
-    </li>
+    </li> -->
 
     <!-- Divider -->
-    <hr class="sidebar-divider d-none d-md-block">
+    <!-- <hr class="sidebar-divider d-none d-md-block"> -->
 
     <!-- Sidebar Toggler (Sidebar) -->
     <div class="text-center d-none d-md-inline">

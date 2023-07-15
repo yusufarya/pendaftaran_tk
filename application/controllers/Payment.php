@@ -25,7 +25,7 @@ class Payment extends BaseController
         $this->loadViewsAdmin('admin/admin_cost', $this->global, $data, NULL, TRUE);
     }
 
-    function update_biaya_administrasi() 
+    function update_biaya_administrasi()
     {
         $postData = $this->input->post(NULL, true);
 
@@ -51,7 +51,6 @@ class Payment extends BaseController
 
         $update = $this->db->update('biaya_administrasi', $dataUpdate);
         redirect('administrativeCost');
-
     }
 
     public function reRegistrationPayment()
@@ -73,49 +72,7 @@ class Payment extends BaseController
         $this->loadViewsAdmin('admin/dataPembayaranPendaftaran', $this->global, $data, NULL, TRUE);
     }
 
-    function addKategori()
-    {
-        $nama = $this->input->post('nama');
-        $keterangan = $this->input->post('keterangan');
-        $data = [
-            'nama' => ucwords($nama),
-            'keterangan' => ucfirst($keterangan)
-        ];
-        $result = $this->db->insert('kategori', $data);
-        if ($result) {
-            redirect('kategoriList');
-        } else {
-            die('Proses Gagal. Hubungi Administrator');
-        }
-    }
-
-    function updateKeterangan()
-    {
-        $id = $this->input->post('id_edit');
-        $nama = $this->input->post('nama_edit');
-        $keterangan = $this->input->post('ket_edit');
-        $data = [
-            'nama' => ucwords($nama),
-            'keterangan' => ucfirst($keterangan)
-        ];
-        $this->db->where("id", $id);
-        $result = $this->db->update('kategori', $data);
-        if ($result) {
-            redirect('kategoriList');
-        } else {
-            die('Proses Gagal. Hubungi Administrator');
-        }
-    }
-
-    function deleteKategori()
-    {
-        $id = $this->input->post('id_del');
-        $this->db->where('id', $id);
-        $this->db->delete('kategori');
-        redirect('kategoriList');
-    }
-
-    function student()
+    function sppPayment()
     {
         cekSession();
         $cekSession = cekSession();
@@ -124,13 +81,13 @@ class Payment extends BaseController
         $data['searchText'] = $searchText;
         $order = $this->input->post('orderby');
         $data['order'] = $order;
-        $data['dataDetail'] = $this->Transaksi_model->getDataMurid($searchText, $order);
+        $data['dataDetail'] = $this->Transaksi_model->listTransaksi($searchText, $order);
 
         $data['me'] = $cekSession;
-        $data['title'] = 'Data Murid';
-        $data['active'] = 'Murid';
+        $data['title'] = 'Pembayaran SPP';
+        $data['active'] = 'payment';
 
-        $this->global['page_title'] = 'Murid - TK AMALIA';
-        $this->loadViewsAdmin('admin/dataMurid', $this->global, $data, NULL, TRUE);
+        $this->global['page_title'] = 'Pembbayaran SPP - TK AMALIA';
+        $this->loadViewsAdmin('admin/dataPembayaranSpp', $this->global, $data, NULL, TRUE);
     }
 }

@@ -49,7 +49,7 @@ class Transaksi_model extends CI_Model
         $this->db->from('transaksi tr');
         $this->db->join('murid AS m', 'm.nik=tr.nik', 'left');
         $this->db->join('metode_pembayaran AS mb', 'mb.id=tr.metode_bayar', 'left');
-        $this->db->where('tr.kode_spp', 0);
+        // $this->db->where('tr.kode_spp', );
         if ($searchText) {
             $this->db->like('m.nik', $searchText)->or_like('m.nama', $searchText);
         }
@@ -57,6 +57,8 @@ class Transaksi_model extends CI_Model
             $this->db->order_by('m.nik', 'ASC');
         } else if ($orderText == 'nama') {
             $this->db->order_by('m.nama', 'ASC');
+        } else if ($orderText == 'tanggal') {
+            $this->db->order_by('tr.tanggal', 'ASC');
         } else {
             $this->db->order_by('m.nik', 'DESC');
         }

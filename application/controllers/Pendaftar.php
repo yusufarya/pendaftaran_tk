@@ -15,8 +15,6 @@ class Pendaftar extends BaseController
         $data['title'] = 'Pendaftaran';
         $data['active'] = 'Daftar';
 
-        // $data['kategori'] = $this->db->get('kategori')->result_array();
-
         $this->global['page_title'] = 'Pendaftaran - TK AMALIA';
         $this->loadViews('pendaftar/pendaftaran', $this->global, $data, NULL, TRUE);
     }
@@ -122,7 +120,7 @@ class Pendaftar extends BaseController
         $cekSessionUser = cekSessionUser();
         $me = $cekSessionUser;
 
-        $post = $this->input->post(null, true); 
+        $post = $this->input->post(null, true);
 
         $config['upload_path']          = './assets/img/lampiran/';
         $config['allowed_types']        = 'gif|jpg|jpeg|png';
@@ -131,10 +129,10 @@ class Pendaftar extends BaseController
         $this->load->library('upload', $config);
 
         if (!$this->upload->do_upload('file_akta')) {
-            $result_a = array('message' => $this->upload->display_errors()); 
+            $result_a = array('message' => $this->upload->display_errors());
             // $this->loadViews('pendaftar/pendaftaran', $error);
         } else {
-            $result_a = array('message' => $this->upload->data()); 
+            $result_a = array('message' => $this->upload->data());
 
             // $this->loadViews('pendaftar/pendaftaran', $data);
         }
@@ -142,10 +140,10 @@ class Pendaftar extends BaseController
         $file_akta = $upload_data1['file_name'];
 
         if (!$this->upload->do_upload('file_kk')) {
-            $result_kk = array('message' => $this->upload->display_errors()); 
+            $result_kk = array('message' => $this->upload->display_errors());
             // $this->loadViews('pendaftar/pendaftaran', $error);
         } else {
-            $result_kk = array('message' => $this->upload->data()); 
+            $result_kk = array('message' => $this->upload->data());
 
             // $this->loadViews('pendaftar/pendaftaran', $data);
         }
@@ -157,7 +155,7 @@ class Pendaftar extends BaseController
             'akta_kelahiran' => $file_akta,
             'kartu_keluarga' => $file_kk
         ];
-        
+
         $insert = $this->db->insert('lampiran_murid', $dataInsert);
         echo json_decode($insert);
         // redirect('pendaftar');
@@ -175,10 +173,10 @@ class Pendaftar extends BaseController
         $this->load->library('upload', $config);
 
         if (!$this->upload->do_upload('fotoDiri')) {
-            $error = array('error' => $this->upload->display_errors()); 
+            $error = array('error' => $this->upload->display_errors());
             // $this->loadViews('pendaftar/pendaftaran', $error);
         } else {
-            $data = array('upload_data' => $this->upload->data()); 
+            $data = array('upload_data' => $this->upload->data());
 
             // $this->loadViews('pendaftar/pendaftaran', $data);
         }
@@ -207,7 +205,7 @@ class Pendaftar extends BaseController
 
         $register = $this->db->get_where('transaksi', ['nik' => $cekSessionUser['nik']]);
         $dataDaftar = $register->row_array();
-        
+
         if ($checkRegister != '' && $dataDaftar != '') {
             $this->next_pembayaran();
             // if ($dataDaftar['status_bayar']) {
@@ -223,7 +221,7 @@ class Pendaftar extends BaseController
     {
         cekSessionUser();
         $cekSessionUser = cekSessionUser();
-        
+
         $register = $this->db->get_where('transaksi', ['nik' => $cekSessionUser['nik']]);
         $dataDaftar = $register->row_array();
 
@@ -256,7 +254,7 @@ class Pendaftar extends BaseController
 
             $result = $this->db->insert('transaksi', $dataTr);
         } else {
-            $result = ''; 
+            $result = '';
         }
 
         if ($result) {

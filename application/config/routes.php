@@ -65,8 +65,9 @@ $route['registrationList'] = 'Admin/registration';
 $route['manageClass/(:any)'] = 'Admin/manageClass/$1';
 $route['getPaymentRegister'] = 'Admin/getPaymentRegister';
 $route['classList'] = 'Admin/classList';
+$route['kelasDetail/(:any)'] = 'Admin/kelasDetail/$1';
 $route['student'] = 'Admin/student';
-
+$route['updateStudent/(:any)'] = 'Admin/ubahDataSiswa/$1';
 
 // Pembayaran //
 $route['administrativeCost'] = 'Payment/administrativeCost';
@@ -85,3 +86,6 @@ $route['send_trx'] = 'Pendaftar/updateBayar';
 
 // SPP //
 $route['spp-payment'] = 'Murid/sppPayment';
+$route['paySpp/(:any)'] = 'Murid/paySpp/$1';
+$route['pembayaranSpp'] = 'Murid/pembayaranSpp';
+$route['send_trx_spp'] = 'Murid/updateBayar';

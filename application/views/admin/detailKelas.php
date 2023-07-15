@@ -7,12 +7,12 @@ $order = $data['order'];
 <div class="container-fluid" style="height: 100vh;">
 
     <!-- Page Heading -->
-    <form action="<?php echo base_url('student') ?>" method="post">
+    <form action="<?php echo base_url('registration') ?>" method="post">
         <div class="row">
             <div class="d-sm-flex align-items-center justify-content-between mb-4">
                 <h3 class="h4 mb-2 text-dark"><?= $data['title'] ?></h3>
             </div>
-            <div class="col-md-8">
+            <!-- <div class="col-md-8">
                 <div class="input-group">
                     <input type="text" name="searchText" class="form-control" placeholder="Cari nama..." autocomplete="off" value="<?= $data['searchText'] ?>">
                     <button class="btn btn-outline-primary" type="submit" id="submit">Cari</button>
@@ -29,7 +29,7 @@ $order = $data['order'];
                         </select>
                     </div>
                 </div>
-            </div>
+            </div> -->
         </div>
     </form>
 
@@ -52,17 +52,17 @@ $order = $data['order'];
             <tbody>
                 <?php foreach ($data['dataDetail'] as $key => $val) {
                 ?>
-                    <tr style="font-size: 13.5px;">
+                    <tr style="font-size: 14px;">
                         <td><?= $val['id'] ?></td>
                         <td>
-                            <a class="text-decoration-none" href="<?= base_url('detailMurid/') . $val['id'] ?>"><?= $val['nama'] ?></a>
+                            <a class="text-decoration-none text-dark" href="<?= base_url('updateStudent/') . $val['id'] ?>"><?= $val['nama'] ?></a>
                         </td>
                         <td><?= $val['nik'] ?></td>
                         <td><?= $val['kelompok'] ?></td>
                         <td><?= $val['alamat'] ?></td>
                         <td><?= date('m-d-Y', strtotime($val['tgl_lahir'])); ?></td>
                         <td style="text-align: center;">
-                            <a href="<?= base_url('Transaksi/editTransaksi/') . $val['id'] ?>" class="text-info bg-white"><i class="bi bi-pencil-fill"></i></a>
+                            <a href="<?= base_url('updateStudent/') . $val['id'] ?>" class="text-info bg-white"><i class="bi bi-pencil-fill"></i></a>
                         </td>
                     </tr>
                 <?php } ?>
